@@ -50,7 +50,7 @@ vs1      SMB_SERVER01\Administrator            Built-in administrator account
 vs1      SMB_SERVER01\guest-user            
 ```
 
-### Create 
+### Create Group
 https://docs.netapp.com/ja-jp/ontap/smb-config/create-local-groups-task.html
 ```shell
 # Create group.
