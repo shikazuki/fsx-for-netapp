@@ -1,5 +1,11 @@
 # fsx-for-netapp
 
+## Initialize
+```shell
+$ terraform init
+$ terraform apply
+```
+
 ## Setup SMB by workgroup
 
 ### Create SMB Server
