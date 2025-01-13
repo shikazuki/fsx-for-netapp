@@ -111,6 +111,16 @@ resource "aws_security_group" "main" {
     description = "All traffic is allowed"
   }
 }
+resource "random_password" "admin_password" {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+output "admin_password" {
+  value     = random_password.admin_password.result
+  sensitive = true
+}
 
 resource "aws_fsx_ontap_file_system" "main" {
   storage_capacity                = 1024
@@ -120,6 +130,7 @@ resource "aws_fsx_ontap_file_system" "main" {
   ha_pairs                        = 1
   throughput_capacity_per_ha_pair = 128
   preferred_subnet_id             = module.network.pri_a_1_id
+  fsx_admin_password              = random_password.admin_password.result
 
   tags = {
     Name = "${local.prefix}-fs"
@@ -129,7 +140,7 @@ resource "aws_fsx_ontap_file_system" "main" {
 resource "aws_fsx_ontap_storage_virtual_machine" "svm" {
   file_system_id     = aws_fsx_ontap_file_system.main.id
   name               = "${local.prefix}-svm"
-  svm_admin_password = "Password@1234" # CAUTION: NOT SECURE
+  svm_admin_password = random_password.admin_password.result
 }
 
 resource "aws_fsx_ontap_volume" "volume" {

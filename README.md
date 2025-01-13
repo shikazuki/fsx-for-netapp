@@ -6,6 +6,11 @@ $ terraform init
 $ terraform apply
 ```
 
+### Get Admin Password
+```shell
+$ terraform output admin_password
+```
+
 ## Setup SMB by workgroup
 
 ### Create SMB Server
